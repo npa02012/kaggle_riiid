@@ -1,2 +1,7 @@
 *.jar
 .ipynb_checkpoints/
+venv/*
+input/riiideducation/*
+
+!.gitkeep
+
