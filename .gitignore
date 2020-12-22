@@ -4,6 +4,7 @@ __pycache__/
 venv/*
 input/riiideducation/*
 output/*
+input/*.csv
 
 !.gitkeep
 

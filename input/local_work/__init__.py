@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import io
 import lightgbm as lgb
+import datatable as dt
 
 class local_work():
     
@@ -22,6 +23,12 @@ class local_work():
         self.s3_client.download_file(self.bucket_name
                                     ,'kaggle_data/riiid-test-answer-prediction/riiideducation/' + tmp
                                     ,'./input/riiideducation/' + tmp)
+        
+        if not os.path.isfile('./input/train.csv'):
+            # Download train.csv
+            self.s3_client.download_file(self.bucket_name
+                                        ,'kaggle_data/riiid-test-answer-prediction/train.csv'
+                                        ,'./input/train.csv')
 
         # Download example_sample_submission.csv and move to /kaggle/input
         save_to = '/home/ubuntu/kaggle_riiid/input/example_sample_submission.csv'
@@ -39,12 +46,9 @@ class local_work():
         move_to = '/kaggle/input/riiid-test-answer-prediction/example_test.csv'
         os.rename(save_to, move_to)
         
-    def get_train_data(self):
-        # Train (sample)
-        key = 'kaggle_data/riiid-test-answer-prediction/train.csv'
-        obj = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
-        train_iter = pd.read_csv(obj['Body'], chunksize = 1000000)
-        return(train_iter.get_chunk())
+    def get_train_data(self, data_types_dict):
+        return(dt.fread("./input/train.csv"
+                        ,columns=set(data_types_dict.keys())).to_pandas())
 
     def get_questions_data(self):
         key = 'kaggle_data/riiid-test-answer-prediction/questions.csv'

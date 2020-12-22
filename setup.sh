@@ -20,6 +20,7 @@ pip install scikit-learn
 pip install scipy
 pip install wheel
 pip install matplotlib
+pip install datatable==0.11.0
 
 # Install LightGBM
 cd ~
@@ -34,9 +35,9 @@ cd ../python-package
 sudo /home/ubuntu/kaggle_riiid/venv/bin/python setup.py install
 
 # Make folders needed for riiideducation library
-#sudo mkdir /kaggle
-#sudo mkdir /kaggle/input
-#mkdir /kaggle/input/riiid-test-answer-prediction
-#chown -R ubuntu /kaggle/input/riiid-test-answer-prediction
+sudo mkdir /kaggle
+sudo mkdir /kaggle/input
+sudo mkdir /kaggle/input/riiid-test-answer-prediction
+sudo chown -R ubuntu /kaggle/input/riiid-test-answer-prediction
 
 
