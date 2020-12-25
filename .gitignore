@@ -5,6 +5,7 @@ venv/*
 input/riiideducation/*
 output/*
 input/*.csv
+submission.csv
 
 !.gitkeep
 

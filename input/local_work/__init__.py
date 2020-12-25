@@ -46,23 +46,30 @@ class local_work():
         move_to = '/kaggle/input/riiid-test-answer-prediction/example_test.csv'
         os.rename(save_to, move_to)
         
-    def get_train_data(self, data_types_dict):
-        return(dt.fread("./input/train.csv"
-                        ,columns=set(data_types_dict.keys())).to_pandas())
+    def get_train_data(self, data_types_dict, nrow=None):
+        if nrow is None:
+            return(dt.fread("./input/train.csv"
+                            ,columns=set(data_types_dict.keys())).to_pandas())
+        else:
+            return(dt.fread("./input/train.csv"
+                            ,columns=set(data_types_dict.keys())
+                            ,max_nrows=nrow).to_pandas())
 
     def get_questions_data(self):
         key = 'kaggle_data/riiid-test-answer-prediction/questions.csv'
         obj = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
-        return(pd.read_csv(io.BytesIO(obj['Body'].read())))
+        df_questions = pd.read_csv(io.BytesIO(obj['Body'].read()))
+        df_questions = df_questions[['question_id', 'part']]
+        return(df_questions)
     
     def make_model(self, df_train, df_valid, target, features):
         params = {
             'objective': 'binary',
-            'seed': 42,
+            'seed': 0,
             'metric': 'auc',
             'learning_rate': 0.05,
             'max_bin': 800,
-            'num_leaves': 80
+            'num_leaves': 60
         }
         d_train = lgb.Dataset(df_train[features], label=df_train[target])
         d_valid = lgb.Dataset(df_valid[features], label=df_valid[target])
