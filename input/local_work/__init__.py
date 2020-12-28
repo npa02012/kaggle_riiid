@@ -46,13 +46,13 @@ class local_work():
         move_to = '/kaggle/input/riiid-test-answer-prediction/example_test.csv'
         os.rename(save_to, move_to)
         
-    def get_train_data(self, data_types_dict, nrow=None):
+    def get_train_data(self, train_cols, nrow=None):
         if nrow is None:
             return(dt.fread("./input/train.csv"
-                            ,columns=set(data_types_dict.keys())).to_pandas())
+                            ,columns=set(train_cols)).to_pandas())
         else:
             return(dt.fread("./input/train.csv"
-                            ,columns=set(data_types_dict.keys())
+                            ,columns=set(train_cols)
                             ,max_nrows=nrow).to_pandas())
 
     def get_questions_data(self):
@@ -67,7 +67,7 @@ class local_work():
             'objective': 'binary',
             'seed': 0,
             'metric': 'auc',
-            'learning_rate': 0.05,
+            'learning_rate': .1,
             'max_bin': 800,
             'num_leaves': 60
         }
