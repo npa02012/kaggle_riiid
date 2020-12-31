@@ -62,12 +62,12 @@ class local_work():
         df_questions = df_questions[['question_id', 'part']]
         return(df_questions)
     
-    def make_model(self, df_train, df_valid, target, features):
+    def make_model(self, df_train, df_valid, target, features, learning_rate):
         params = {
             'objective': 'binary',
             'seed': 0,
             'metric': 'auc',
-            'learning_rate': .1,
+            'learning_rate': learning_rate,
             'max_bin': 800,
             'num_leaves': 60
         }
@@ -77,9 +77,9 @@ class local_work():
         model = lgb.train(
             params, 
             d_train, 
-            num_boost_round=10000,
+            num_boost_round=2000,
             valid_sets=[d_train, d_valid], 
-            early_stopping_rounds=50,
+            early_stopping_rounds=20,
             verbose_eval=50
         )
         return(model)
