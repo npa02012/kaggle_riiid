@@ -64,12 +64,15 @@ class local_work():
     
     def make_model(self, df_train, df_valid, target, features, learning_rate):
         params = {
-            'objective': 'binary',
-            'seed': 0,
-            'metric': 'auc',
-            'learning_rate': learning_rate,
-            'max_bin': 800,
-            'num_leaves': 60
+            'objective': 'binary'
+            ,'metric': 'auc'
+            ,'boosting_type': 'gbdt'
+            ,'learning_rate': learning_rate
+            ,'num_leaves': 120
+            ,'max_bin': 400
+            ,'feature_fraction': .8
+            ,'bagging_fraction': .8
+            
         }
         d_train = lgb.Dataset(df_train[features], label=df_train[target])
         d_valid = lgb.Dataset(df_valid[features], label=df_valid[target])
