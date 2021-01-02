@@ -59,7 +59,6 @@ class local_work():
         key = 'kaggle_data/riiid-test-answer-prediction/questions.csv'
         obj = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
         df_questions = pd.read_csv(io.BytesIO(obj['Body'].read()))
-        df_questions = df_questions[['question_id', 'part']]
         return(df_questions)
     
     def make_model(self, df_train, df_valid, target, features, learning_rate):
