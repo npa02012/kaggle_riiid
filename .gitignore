@@ -7,5 +7,6 @@ output/*
 input/*.csv
 submission.csv
 
+!input/question_cmnts_v5.csv
 !.gitkeep
 
