@@ -1,3 +1,25 @@
+if False:
+    # Get features_dicts
+    tmp = {'N_TRAIN_ROWS' : 1 * 1000000
+            ,'n_skip_rows' : 0
+          }
+    train, valid, questions_df, features_dicts = read_and_preprocess(KAGGLE_RUN, tmp)
+    
+    # Get models
+    tmp = {'model_names' : ['final_model_1', 'final_model_2', 'final_model_3', 'final_model_4', 'final_model_5']}
+    TARGET, FEATURES, models = train_and_evaluate(train, valid, KAGGLE_RUN="test", final_params=tmp)
+    
+    # Test inference
+    dont_include = [
+        ['prior_question_had_explanation', 'elapsed_time_u_avg', 'community', 'n_tags']
+        ,['prior_question_had_explanation', 'community', 'n_tags']
+        ,['prior_question_had_explanation', 'n_tags']
+        ,['community', 'n_tags']
+        ,[]
+    ]
+        
+    inference(TARGET, FEATURES, models, questions_df, features_dicts, dont_include)
+
 '''
 asked_first50_ac_q_avg
     - Average for the question when it was asked within the first 50 interactions
