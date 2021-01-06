@@ -21,6 +21,7 @@ pip install scipy
 pip install wheel
 pip install matplotlib
 pip install datatable==0.11.0
+pip install dill
 
 # Install LightGBM
 cd ~
