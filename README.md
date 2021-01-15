@@ -2,7 +2,7 @@
 
 This is the repository I used to develop my code for the [Kaggle Riiid competition](https://www.kaggle.com/c/riiid-test-answer-prediction).  
 
-Although I didn't do as well as I'd hope, I had several valuable takeaways:
+Although I didn't do as well as I'd hoped, I had several valuable takeaways:
 
 * Configuration methods in [setup.sh](https://github.com/npa02012/kaggle_riiid/blob/main/setup.sh):
 	* Installing a specific version of Python and building a venv + ipykernel with it.
